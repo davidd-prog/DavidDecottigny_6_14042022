@@ -3,6 +3,8 @@ const mongoose = require("mongoose");
 
 const app = express();
 
+const userRoutes = require("./routes/user");
+
 mongoose
   .connect(
     "mongodb+srv://DDadmin_user:cqbodzkb65@cluster0.gwrtx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
@@ -29,5 +31,7 @@ app.use((req, res, next) => {
 app.use((req, res) => {
   console.log("Réponse envoyée avec succès !");
 });
+
+app.use("/api/auth", userRoutes);
 
 module.exports = app;
