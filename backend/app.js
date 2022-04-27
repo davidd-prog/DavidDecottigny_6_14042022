@@ -1,6 +1,8 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const Thing = require("./models/Thing");
+
+const stuffRoutes = require("./routes/stuff");
+const userRoutes = require("./routes/user");
 
 const app = express();
 
@@ -27,24 +29,7 @@ app.use((req, res, next) => {
   next();
 });
 
-const userRoutes = require("./routes/user");
-
-app.post("/api/stuff", (req, res, next) => {
-  const thing = new Thing({
-    ...req.body,
-  });
-  thing
-    .save()
-    .then(() => res.status(201).json({ message: "Objet enregistré !" }))
-    .catch((error) => res.status(400).json({ error }));
-});
-
-app.get("/api/stuff", (req, res, next) => {
-  Thing.find()
-    .then((things) => res.status(200).json(things))
-    .catch((error) => res.status(400).json({ error }));
-});
-
+app.use("/api/stuff", stuffRoutes);
 app.use("/api/auth", userRoutes);
 
 module.exports = app;
