@@ -13,23 +13,23 @@ mongoose
   .then(() => console.log("Connexion à MongoDB réussie !"))
   .catch(() => console.log("Connexion à MongoDB échouée !"));
 
-app.use((req, res, next) => {
-  console.log("Requête reçue !");
-  next();
-});
-
-app.use((req, res, next) => {
-  res.status(201);
-  next();
-});
-
-app.use((req, res, next) => {
-  res.json({ message: "Votre requête a bien été reçue !" });
-  next();
-});
-
-app.use((req, res) => {
-  console.log("Réponse envoyée avec succès !");
+app.use("/api/stuff", (req, res, next) => {
+  const stuff = [
+    {
+      userId: "utilisateur",
+      name: "sauce prototype",
+      manufacturer: "le chef cuisinier",
+      description: "nouvel essai de sauce",
+      mainPepper:
+        "https://pixabay.com/fr/photos/soupe-%c3%a0-la-tomate-tomate-soupe-482403/",
+      heat: 8,
+      likes: 0,
+      dislikes: 0,
+      usersLiked: [""],
+      usersDisliked: [""],
+    },
+  ];
+  res.status(200).json(stuff);
 });
 
 app.use("/api/auth", userRoutes);
