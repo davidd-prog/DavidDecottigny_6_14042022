@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const Thing = require("./models/Thing");
 
 const app = express();
 
@@ -27,6 +28,16 @@ app.use((req, res, next) => {
 });
 
 const userRoutes = require("./routes/user");
+
+app.post("/api/stuff", (req, res, next) => {
+  const thing = new Thing({
+    ...req.body,
+  });
+  thing
+    .save()
+    .then(() => res.status(201).json({ message: "Objet enregistré !" }))
+    .catch((error) => res.status(400).json({ error }));
+});
 
 app.use("/api/stuff", (req, res, next) => {
   const stuff = [
