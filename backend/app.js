@@ -3,6 +3,14 @@ const mongoose = require("mongoose");
 
 const app = express();
 
+mongoose
+  .connect(
+    "mongodb+srv://DDadmin_user:cqbodzkb65@cluster0.gwrtx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+    { useNewUrlParser: true, useUnifiedTopology: true }
+  )
+  .then(() => console.log("Connexion à MongoDB réussie !"))
+  .catch(() => console.log("Connexion à MongoDB échouée !"));
+
 app.use(express.json());
 
 app.use((req, res, next) => {
@@ -19,14 +27,6 @@ app.use((req, res, next) => {
 });
 
 const userRoutes = require("./routes/user");
-
-mongoose
-  .connect(
-    "mongodb+srv://DDadmin_user:cqbodzkb65@cluster0.gwrtx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
-    { useNewUrlParser: true, useUnifiedTopology: true }
-  )
-  .then(() => console.log("Connexion à MongoDB réussie !"))
-  .catch(() => console.log("Connexion à MongoDB échouée !"));
 
 app.use("/api/stuff", (req, res, next) => {
   const stuff = [
