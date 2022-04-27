@@ -39,23 +39,10 @@ app.post("/api/stuff", (req, res, next) => {
     .catch((error) => res.status(400).json({ error }));
 });
 
-app.use("/api/stuff", (req, res, next) => {
-  const stuff = [
-    {
-      userId: "utilisateur",
-      name: "sauce prototype",
-      manufacturer: "le chef cuisinier",
-      description: "nouvel essai de sauce",
-      mainPepper:
-        "https://pixabay.com/fr/photos/soupe-%c3%a0-la-tomate-tomate-soupe-482403/",
-      heat: 8,
-      likes: 0,
-      dislikes: 0,
-      usersLiked: [""],
-      usersDisliked: [""],
-    },
-  ];
-  res.status(200).json(stuff);
+app.get("/api/stuff", (req, res, next) => {
+  Thing.find()
+    .then((things) => res.status(200).json(things))
+    .catch((error) => res.status(400).json({ error }));
 });
 
 app.use("/api/auth", userRoutes);
