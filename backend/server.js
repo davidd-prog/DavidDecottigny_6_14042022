@@ -1,3 +1,5 @@
+// Serveur créé et paramétré
+
 const http = require("http");
 const app = require("./app");
 
@@ -36,7 +38,7 @@ const errorHandler = (error) => {
   }
 };
 
-const server = http.createServer(app);
+const server = http.createServer(app); // Gestion des requêtes par l'application express app.js
 
 server.on("error", errorHandler);
 server.on("listening", () => {
