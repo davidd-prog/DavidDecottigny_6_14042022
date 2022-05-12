@@ -2,6 +2,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const path = require("path");
+require("dotenv").config();
 
 const saucesRoutes = require("./routes/sauces");
 const userRoutes = require("./routes/user");
@@ -11,7 +12,7 @@ const app = express(); // Création de l'application
 // Connexion à la base de données MongoDB
 mongoose
   .connect(
-    "mongodb+srv://DDadmin_user:cqbodzkb65@cluster0.gwrtx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+    process.env.MONGO_URI,
     { useNewUrlParser: true, useUnifiedTopology: true }
   )
   .then(() => console.log("Connexion à MongoDB réussie !"))
