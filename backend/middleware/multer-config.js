@@ -1,3 +1,4 @@
+// Configuration de la possibilité de télécharger et sauvegarder des images utilisateurs
 const multer = require("multer");
 
 const MIME_TYPES = {

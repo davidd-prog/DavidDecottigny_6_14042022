@@ -1,3 +1,6 @@
+/* Récupération de l'outil mongoose, schéma de données requis pour chaque sauce créée et export du modèle pour
+l'enregistrement dans la base de données */
+
 const mongoose = require("mongoose");
 
 const sauceSchema = mongoose.Schema({

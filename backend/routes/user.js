@@ -1,3 +1,4 @@
+// Logiques de directions des routes de l'application servant à l'enregistrement et à la connexion utilisateur
 const express = require("express");
 const router = express.Router();
 const userCtrl = require("../controllers/user");

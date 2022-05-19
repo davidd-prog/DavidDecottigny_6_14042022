@@ -1,9 +1,8 @@
+// Sécurisation de l'élaboration d'un mot de passe utilisateur fort
 const passwordValidator = require("password-validator");
 
-// Creation du schema
 const passwordSchema = new passwordValidator();
 
-//Ajout des propriétés
 passwordSchema
   .is()
   .min(6)
