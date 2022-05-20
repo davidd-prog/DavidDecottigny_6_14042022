@@ -33,6 +33,18 @@ exports.getOneSauce = (req, res, next) => {
 
 // Mécanique de modification d'une sauce
 exports.updateOneSauce = (req, res, next) => {
+  Sauce.findOne({ _id: req.params.id }).then((sauce) => {
+    if (!sauce) {
+      return res.status(404).json({
+        error: new Error("Sauce non trouvée !"),
+      });
+    }
+    if (sauce.userId !== req.auth.userId) {
+      return res.status(403).json({
+        error: new Error("Requête non autorisée !"),
+      });
+    }
+  });
   const sauceObject = req.file
     ? {
         ...JSON.parse(req.body.sauce),
@@ -53,6 +65,16 @@ exports.updateOneSauce = (req, res, next) => {
 exports.deleteOneSauce = (req, res, next) => {
   Sauce.findOne({ _id: req.params.id })
     .then((sauce) => {
+      if (!sauce) {
+        return res.status(404).json({
+          error: new Error("Sauce non trouvée !"),
+        });
+      }
+      if (sauce.userId !== req.auth.userId) {
+        return res.status(403).json({
+          error: new Error("Requête non autorisée !"),
+        });
+      }
       const filename = sauce.imageUrl.split("/images/")[1];
       fs.unlink(`images/${filename}`, () => {
         Sauce.deleteOne({ _id: req.params.id })
